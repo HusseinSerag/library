@@ -16,6 +16,8 @@ function DisplayBooks(){
 let menuChange = document.querySelector('.menu')
 let navBackground = document.querySelector('.nav-background')
 let container = document.querySelector('.container')
+let addBook = document.querySelector('.nav :nth-child(1)')
+let form = document.querySelector('.nav :nth-child(2)')
 let nav = document.querySelector('.nav')
 const MENU_SRC = '/images/menu.svg';
 const MENU_CHANGE_SRC = '/images/menu-close.svg';
@@ -27,6 +29,20 @@ menuChange.addEventListener('click',(e)=>{
 })
 nav.addEventListener('click',(e)=>{
     e.stopPropagation()
+})
+
+addBook.addEventListener('click', (e)=>{
+    if(form.classList.contains('hidden'))
+    {
+        form.classList.add('active')
+        form.classList.remove('hidden')
+    }
+    else{
+        form.classList.remove('active')
+        form.classList.add('hidden')
+    }
+    
+    
 })
 container.addEventListener('click',(e)=>{
     if(nav.classList.contains('active')){

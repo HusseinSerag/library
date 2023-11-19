@@ -18,7 +18,7 @@
 }
 
 .icon img{
-    height: 40px;
+    height: min(60px,10vw + 16px ,10vh + 16px);
     filter:invert(92%) sepia(6%) saturate(63%) hue-rotate(175deg) brightness(106%) contrast(99%);
 }
 .main{
@@ -31,6 +31,7 @@
     visibility: hidden;
     transform: translateX(-320px); 
   transition: transform 0.3s ease-out, visibility 1s;
+  font-size: clamp(1.3rem,1vw + 16px ,2rem);
 
 }
 .nav.active{
@@ -38,9 +39,12 @@
     display: grid;
     height: 100vh;
     width:min(768px , 100%);
-    grid-template-columns: minmax(100px,250px);
+    grid-template-columns: 100%;
     grid-auto-rows: min-content;
-    padding:min(3vw , 24px);
+    padding-top:min(3vw , 24px);
+    justify-items: center;
+    top:0;
+    left: 0;
     gap:10px;
     visibility: visible;
     z-index: 5;
@@ -49,6 +53,9 @@
 }
 .nav-el + .hidden{
     display: none;
+}
+.nav-el + .active{
+    display:block;
 }
 .nav-background{
     
