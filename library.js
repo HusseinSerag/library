@@ -11,6 +11,9 @@ let inputs = document.querySelectorAll('input:not([type=checkbox])')
 let removeBooks = document.querySelector('div.nav-el:last-of-type')
 let removePopUp = document.querySelector('.nav-el .sm-text')
 let addPopUp = document.querySelector('form .sm-text')
+let cards = document.querySelector('.cards')
+
+
 const MENU_SRC = '/images/menu.svg';
 const MENU_CHANGE_SRC = '/images/menu-close.svg';
 
@@ -31,12 +34,48 @@ function addBookToLibrary(book){
     
 
 }
-function DisplayBooks(){
-for(const book of books){
-    for(const bookpro in book){
-        console.log(book[bookpro])
+function addToCard(book , property ){
+    let Info = document.createElement('div')
+    if(property == 'read'){
+        if(book[property] == false){
+            Info.textContent = `Book isn't read!`
+        }
+        else{
+            Info.textContent = `Book read!`
+        }
     }
+    else
+        Info.textContent = `${property}: ${book[property]}`
+    return Info
 }
+
+
+function DisplayBooks(book){
+   
+        let card = document.createElement('div')
+        card.classList.add('card')
+        card.setAttribute('id', books.length)
+        for(const property in book){
+            card.appendChild(addToCard(book , property))
+        }
+        cards.appendChild(card)
+         card.append(createRemoveBtn(card))
+        
+    
+
+}
+function createRemoveBtn(card){
+    let btn = document.createElement('button')
+        btn.textContent = 'Delete Book'
+        btn.setAttribute('connection' , card)
+        console.log(new DOMParser().parseFromString(btn.getAttribute('connection'),'text/html') == card)
+        btn.className = 'remove-btn btn'
+        btn.addEventListener('click',()=>{
+            cards.removeChild(card)
+            })
+        return btn
+
+       
 }
 
 submitBtn.addEventListener('click',(e)=>{
@@ -47,11 +86,11 @@ submitBtn.addEventListener('click',(e)=>{
     let readValue = document.getElementById('read');
     if(checkValidity(authorInput.value , titleInput.value , numberInput.value))
     {
-        const book = new Book(authorInput.value , titleInput.value , numberInput.value , readValue.value)
+        const book = new Book(authorInput.value , titleInput.value , numberInput.value , readValue.checked)
     addBookToLibrary(book)
     addPopUp.classList.add('green');
     addPopUp.textContent = 'Books added successfully!'
-    DisplayBooks()
+    DisplayBooks(book)
     authorInput.value = ''
     titleInput.value = ''
     numberInput.value = ''

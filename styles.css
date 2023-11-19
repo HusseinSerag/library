@@ -180,7 +180,7 @@ input[type=checkbox]:checked + span[class^=slider]{
     border-radius: 34px;
 }
 
-form .btn{
+.btn{
     border:none;
     background-color: #2d2d2d;
     color:white;
@@ -189,7 +189,10 @@ form .btn{
     font-family: 'Kdam Thmor Pro', sans-serif;
 
 }
-
+.remove-btn{
+    background-color:#C41E3A;
+    border-radius: 10px;
+}
 .sm-text{
     font-size: 12px;
     text-align: center;
@@ -199,4 +202,23 @@ form .btn{
 }
 .green{
     color:green;
+}
+
+
+
+.cards{
+display: grid;
+grid-template-columns: repeat(auto-fit , minmax(250px,300px));
+gap:10px;
+justify-content: center;
+padding: 20px;
+}
+
+
+.card{
+    background-color: #ccc;
+    border-radius: 15px;
+    padding: 10px;
+    
+    
 }
