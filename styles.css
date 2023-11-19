@@ -2,3 +2,17 @@
     margin:0;
     padding:0;
 }
+.container{
+    display: grid;
+    grid-template-rows:auto 85vh;
+}
+.header{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+
+}
+
+.icon img{
+    height: 40px;
+}
