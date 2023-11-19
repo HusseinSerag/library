@@ -1,7 +1,11 @@
 let books = [];
-function Book(){
-//TODO
+function Book(author, title, numPages , read){
+    this.author = author;
+    this.title = title;
+    this.numPages = numPages;
+    this.read = read;
 }
+
 
 
 function addBookToLibrary(book){

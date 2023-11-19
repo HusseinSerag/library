@@ -5,10 +5,11 @@
 :root{
     --height-of-header:auto;
 }
-.container{
+body > .container{
     display: grid;
     grid-template-rows:auto calc(100vh - 45px);
     background-color: #2d2d2d ;
+    font-family: 'Kdam Thmor Pro', sans-serif;
 }
 .header{
     display:grid;
@@ -45,7 +46,7 @@
     justify-items: center;
     top:0;
     left: 0;
-    gap:10px;
+    gap:15px;
     visibility: visible;
     z-index: 5;
     transform: translateX(0px); 
@@ -56,6 +57,7 @@
 }
 .nav-el + .active{
     display:block;
+    width:100%;
 }
 .nav-background{
     
@@ -70,4 +72,110 @@
     width: 100%;
     position: absolute;
     background-color: rgba(10,10,10,0.5);
+}
+form{
+    display: flex;
+    justify-content: center;
+    
+}
+form .container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    width: min(80%,400px);
+    gap:15px;
+    
+}
+
+
+.inputs{
+    position: relative;
+
+   
+
+}
+
+.inputs > label{
+    position: absolute;
+    top:calc(0.8vw + 3px);
+    left:5px;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.1rem;
+    
+}
+ .inputs > input:focus ~ label{
+    top:-15px;
+    font-size: 0.8rem;
+}
+.inputs > input{
+    height: 1.5rem;
+    width: 100%;
+    
+}
+
+
+.switch-container{
+    display: flex;
+    font-size: 1.4rem;
+    gap:10px;
+    align-items: center;
+    
+}
+.switch{
+    height: 35px;
+    position: relative;
+    
+}
+input[type=checkbox]{
+appearance: none;
+height: 34px;
+    width: 72px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 2;
+
+}
+
+
+input[type=checkbox] + span[class^=slider]{
+    height: 34px;
+    width: 60px;
+    position: absolute;
+    background-color: #ccc;
+    top:0;
+    left:0;
+    z-index: -1;
+}
+input[type=checkbox]:checked + span[class^=slider]{
+    background-color: #2d2d2d ;
+  }
+  span[class^=slider]::before{
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  .slider.round::before{
+    border-radius: 50%;
+  }
+.round{
+    border-radius: 34px;
+}
+
+form .btn{
+    border:none;
+    background-color: #2d2d2d;
+    color:white;
+    padding:clamp(12px,2vw,18px);
+    font-size: min(1.8rem,1vw + 12px,1vh + 12px);
 }
