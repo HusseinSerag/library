@@ -15,12 +15,16 @@ body > .container{
     display:grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 100%;
+    padding-top: 10px;
 
 }
 
 .icon img{
     height: min(60px,10vw + 16px ,10vh + 16px);
     filter:invert(92%) sepia(6%) saturate(63%) hue-rotate(175deg) brightness(106%) contrast(99%);
+}
+.icon:last-of-type{
+    justify-self: end;
 }
 .main{
     position: relative;
@@ -102,6 +106,10 @@ form .container{
     font-size: 1.1rem;
     
 }
+label.not-empty{
+    top:-15px;
+    font-size: 0.8rem;
+}
  .inputs > input:focus ~ label{
     top:-15px;
     font-size: 0.8rem;
@@ -178,4 +186,17 @@ form .btn{
     color:white;
     padding:clamp(12px,2vw,18px);
     font-size: min(1.8rem,1vw + 12px,1vh + 12px);
+    font-family: 'Kdam Thmor Pro', sans-serif;
+
+}
+
+.sm-text{
+    font-size: 12px;
+    text-align: center;
+}
+.red{
+    color:#C41E3A;
+}
+.green{
+    color:green;
 }
