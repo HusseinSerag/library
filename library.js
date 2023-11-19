@@ -12,6 +12,7 @@ let removeBooks = document.querySelector('div.nav-el:last-of-type')
 let removePopUp = document.querySelector('.nav-el .sm-text')
 let addPopUp = document.querySelector('form .sm-text')
 let cards = document.querySelector('.cards')
+let init = document.querySelector('.init')
 
 
 const MENU_SRC = '/images/menu.svg';
@@ -31,6 +32,7 @@ function Book(author, title, numPages , read){
 
 function addBookToLibrary(book){
     books.push(book)
+    
     
 
 }
@@ -54,12 +56,13 @@ function DisplayBooks(book){
    
         let card = document.createElement('div')
         card.classList.add('card')
-        card.setAttribute('id', books.length)
+        card.setAttribute('id', books.length-1)
         for(const property in book){
             card.appendChild(addToCard(book , property))
         }
         cards.appendChild(card)
          card.append(createRemoveBtn(card))
+         cards.removeChild(init)
         
     
 
@@ -72,6 +75,10 @@ function createRemoveBtn(card){
         btn.className = 'remove-btn btn'
         btn.addEventListener('click',()=>{
             cards.removeChild(card)
+            books.splice(btn.id , 1)
+            if(books.length == 0 ){
+                cards.appendChild(init)
+            }
             })
         return btn
 
@@ -122,6 +129,7 @@ function checkValidity(first,second,third){
 }
 
 removeBooks.addEventListener('click',()=>{
+
     if(books.length == 0){
         removePopUp.classList.add('red')
         removePopUp.textContent = 'Add books first!';
@@ -137,7 +145,11 @@ removeBooks.addEventListener('click',()=>{
     for(let i = 0 ; i < books.length ; i++){
         books.pop()
     }
+    Array.from(cards.children).forEach(child =>{
+        cards.removeChild(child)
+    })
     removePopUp.textContent = 'All Books removed successfully';
+    cards.appendChild(init)
     removePopUp.classList.add('green')
     setTimeout(()=>{
         removePopUp.textContent = '';
