@@ -19,9 +19,43 @@
         
         <div class="main">
            
-            <div class="file"></div>
+            
             <div class="cards">
                 <div class="init">Add some books!!!!</div>
+                
+            </div>
+            <div class="edit">
+                <form method="" action="">
+                    <div class="container">
+                        <div class="edit-inputs">
+                            <input id="authorEdit" type="text">
+                            <label for="authorEdit">Author</label>
+                            
+                        </div>
+                        <div class="edit-inputs">
+                            <input id="titleEdit" type="text">
+                            <label for="titleEdit">Title</label>
+                            
+                        </div>
+                        <div class="edit-inputs">
+                            <input id="numPagesEdit" type="number" min="1">
+                            <label for="numPagesEdit">Number of Pages</label>
+                            
+                        </div>
+                       
+                        <div class="switch-container">
+                            
+                            <label for="read"></label>
+                            <div class="switch">
+                                <input id="read"  type="checkbox">
+                                <span class="slider round"></span>
+                            </div>
+                        
+                        </div>
+                        <button class="btn toggle-edit">edit</button>
+                        <div class="sm-text-edit"></div>
+                    </div>
+                    </form>
             </div>
             <div class="nav">
                <div class="nav-el">Add Book</div>
@@ -64,7 +98,7 @@
             </div>
             <div ></div>
             <div class="nav-background"></div></div>
-        
+            
     </div>
 </body>
 </html>

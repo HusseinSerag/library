@@ -1,18 +1,20 @@
 let books = [];
 
-let submitBtn = document.querySelector('.btn')
-let menuChange = document.querySelector('.menu')
-let navBackground = document.querySelector('.nav-background')
-let container = document.querySelector('.container')
-let addBook = document.querySelector('.nav :nth-child(1)')
-let form = document.querySelector('.nav :nth-child(2)')
-let nav = document.querySelector('.nav')
-let inputs = document.querySelectorAll('input:not([type=checkbox])')
-let removeBooks = document.querySelector('div.nav-el:last-of-type')
-let removePopUp = document.querySelector('.nav-el .sm-text')
-let addPopUp = document.querySelector('form .sm-text')
-let cards = document.querySelector('.cards')
-let init = document.querySelector('.init')
+let submitBtn = document.querySelector('.nav .btn');
+let menuChange = document.querySelector('.menu');
+let navBackground = document.querySelector('.nav-background');
+let container = document.querySelector('.container');
+let addBook = document.querySelector('.nav :nth-child(1)');
+let form = document.querySelector('.nav :nth-child(2)');
+let nav = document.querySelector('.nav');
+let inputs = document.querySelectorAll('input:not([type=checkbox])');
+let removeBooks = document.querySelector('div.nav-el:last-of-type');
+let removePopUp = document.querySelector('.nav-el .sm-text');
+let addPopUp = document.querySelector('form .sm-text');
+let cards = document.querySelector('.cards');
+let init = document.querySelector('.init');
+let readContainerEdit = document.querySelector('.edit form label[for=read]');
+let toggleEdit = document.querySelector('.btn.toggle-edit');
 
 
 const MENU_SRC = '/images/menu.svg';
@@ -120,7 +122,7 @@ function createRemoveBtn(card){
 
        
 }
-
+let editDiv = document.querySelector('.edit')
 function createEditBtn(card){
      let btn = document.createElement('button')
         btn.textContent = 'Edit'
@@ -130,17 +132,33 @@ function createEditBtn(card){
             console.log(books[id])
             let author = card.querySelector('.author')
             author.textContent = 'Changed'
-            
+            navBackground.classList.add('active')
+            editDiv.classList.add('editactive')
+            editDiv.setAttribute('id' , id)
+            if(books[id].read == false){
+                readContainerEdit.textContent = 'Have you read yet?'
+            }
+            else{
+                readContainerEdit.textContent = 'You are already done!'
+            }
+
         })
         return btn
 }
+/*
+toggleEdit.addEventListener('click',()=>{
+    let currentBook = books[editDiv.getAttribute('id')]
+    currentBook = 
+    editDiv.setAttribute('id','')
+})
 
+*/
 submitBtn.addEventListener('click',(e)=>{
     e.preventDefault();
-    let authorInput = document.getElementById('author');
-    let titleInput = document.getElementById('title');
-    let numberInput = document.getElementById('numPages');
-    let readValue = document.getElementById('read');
+    let authorInput = document.querySelector('.nav #author');
+    let titleInput = document.querySelector('.nav #title');
+    let numberInput = document.querySelector('.nav #numPages');
+    let readValue = document.querySelector('.nav #read');
     if(checkValidity(authorInput.value , titleInput.value , numberInput.value))
     {
         const book = new Book(authorInput.value , titleInput.value , numberInput.value , readValue.checked)
@@ -244,17 +262,27 @@ addBook.addEventListener('click', (e)=>{
     
 })
 container.addEventListener('click',(e)=>{
+    
     if(nav.classList.contains('active')){
         
         navBackground.classList.remove('active')
         nav.classList.remove('active')
         changeMenuIcon()
     }
+    else{
+        if(navBackground.classList.contains('active')){
+            navBackground.classList.remove('active')
+            editDiv.classList.remove('editactive')
+        }
+    }
 });
 
 
 function changeMenuIcon(){
     let currentMenu = menuChange.getAttribute('src');
+    if(editDiv.classList.contains('editactive')){
+        editDiv.classList.remove('editactive')
+    }
     if( currentMenu.includes(MENU_SRC) )
     {   navBackground.classList.add('active')
         nav.classList.add('active')
@@ -280,7 +308,16 @@ function reassignIds(cardsDiv,i){
         reassignIds(cardsDiv,i+1)
         card.setAttribute('id', i)
     }
-}
+}cards.addEventListener('click',(e)=>{
+    e.stopPropagation()
+})
+editDiv.addEventListener('click',e=>{
+    e.stopPropagation()
+})
+
+
+
+
 
 DisplayBooks({author:'Hussein',title:'Hussein' , numPages:200 , read:true})
 addBookToLibrary({author:'Hussein',title:'Hussein' , numPages:200 , read:true})

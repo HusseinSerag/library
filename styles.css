@@ -94,30 +94,30 @@ form .container{
 }
 
 
-.inputs{
+.inputs , .edit-inputs{
     position: relative;
 
    
 
 }
 
-.inputs > label{
+.inputs > label , .edit-inputs > label{
     position: absolute;
     top:calc(0.8vw + 3px);
     left:5px;
     transition: all 0.2s ease-in-out;
-    font-size: 1.1rem;
-    
+    font-size: 1.1rem;  
 }
+
 label.not-empty{
     top:-15px;
     font-size: 0.8rem;
 }
- .inputs > input:focus ~ label{
+ .inputs > input:focus ~ label , .edit-inputs > input:focus ~ label {
     top:-15px;
     font-size: 0.8rem;
 }
-.inputs > input{
+.inputs > input , .edit-inputs > input{
     height: 1.5rem;
     width: 100%;
     
@@ -208,7 +208,7 @@ input[type=checkbox]:checked + span[class^=slider]{
     display: flex;
     justify-content: space-between;
 }
-.sm-text{
+.sm-text , .sm-text-edit{
     font-size: 12px;
     text-align: center;
 }
@@ -250,4 +250,30 @@ input:valid{
 }
 input:invalid{
     border-color:red;
+}
+.edit{
+    position: absolute;
+    display: none;
+    width:min(350px , 90%);
+    padding-top: 24px;
+    background-color: white;
+    border-radius: 15px;
+    z-index: 180;
+    top:50%;
+    left:50%;
+    margin-left:0;
+    margin-right:0;
+    transform: translate(-50%,-50%);
+}
+.editactive{
+    display: block;
+
+}
+
+.edit .switch-container{
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.edit .switch{
+    width:35px;
 }
