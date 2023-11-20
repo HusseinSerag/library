@@ -17,6 +17,7 @@ let readContainerEdit = document.querySelector('.edit form label[for=read]');
 let toggleEdit = document.querySelector('.btn.toggle-edit');
 
 
+
 const MENU_SRC = '/images/menu.svg';
 const MENU_CHANGE_SRC = '/images/menu-close.svg';
 
@@ -129,9 +130,6 @@ function createEditBtn(card){
         btn.className = 'edit-btn btn'
         btn.addEventListener('click',()=>{
             let id = card.getAttribute('id')
-            console.log(books[id])
-            let author = card.querySelector('.author')
-            author.textContent = 'Changed'
             navBackground.classList.add('active')
             editDiv.classList.add('editactive')
             editDiv.setAttribute('id' , id)
@@ -145,14 +143,61 @@ function createEditBtn(card){
         })
         return btn
 }
-/*
-toggleEdit.addEventListener('click',()=>{
+
+toggleEdit.addEventListener('click',(e)=>{
+    e.preventDefault()
     let currentBook = books[editDiv.getAttribute('id')]
-    currentBook = 
-    editDiv.setAttribute('id','')
+    let currentCard = cards.children[editDiv.getAttribute('id')]
+    console.log(currentBook)
+    let authorInput = document.querySelector('.edit #authorEdit');
+    let titleInput = document.querySelector('.edit #titleEdit');
+    let numberInput = document.querySelector('.edit #numPagesEdit');
+    let readValue = document.querySelector('.edit #readEdit');
+    
+    if(checkValidity(authorInput.value , titleInput.value , numberInput.value)){
+        
+        let authorSpan = currentCard.querySelector('.author')
+        authorSpan.textContent = authorInput.value
+        let titleSpan = currentCard.querySelector('.title')
+        titleSpan.textContent = titleInput.value
+        let numberSpan = currentCard.querySelector('.numPages')
+        numberSpan.textContent= numberInput.value
+        let readSpan = currentCard.querySelector('.read')
+        if(readValue.checked == false){
+            readSpan.textContent =  'Book isn\'t read!'
+        }
+        else{
+            readSpan.textContent =  "Book is read!"
+        }
+        currentBook = {
+            author:authorInput.value,
+            title:titleInput.value,
+            numPages:numberInput.value,
+            read:readValue,
+            
+        }
+        books[editDiv.getAttribute('id')] = currentBook = 
+    setTimeout(()=>{
+        addPopUp.textContent = ''
+        addPopUp.classList.remove('green')
+        authorInput.value = ''
+        titleInput.value = ''
+        numberInput.value = ''
+        readValue.checked = false
+    },2000);
+    }
+    else{
+        addPopUp.textContent = 'Please fill in all the fields!'
+        addPopUp.classList.add('red')
+        setTimeout(()=>{
+            addPopUp.textContent = ''
+            addPopUp.classList.remove('red')
+        },2000);
+        }
+    
 })
 
-*/
+
 submitBtn.addEventListener('click',(e)=>{
     e.preventDefault();
     let authorInput = document.querySelector('.nav #author');
@@ -273,6 +318,7 @@ container.addEventListener('click',(e)=>{
         if(navBackground.classList.contains('active')){
             navBackground.classList.remove('active')
             editDiv.classList.remove('editactive')
+            editDiv.setAttribute('id','')
         }
     }
 });
