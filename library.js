@@ -44,32 +44,32 @@ function printRead( value){
     }
 }
 
-function printNumberOfPages(value){
-    return `Number of pages is ${value}`
+function printItem(value , property){
+    let span = document.createElement('span')
+    span.classList.add(property)
+    span.textContent = value
+    return span
+    
 }
 
-function printAuthor(value){
-    return `Author is ${value}`
-}
-function printTitle(value){
-    return `Title is ${value}`
-}
 function addToCard(book , property){
     let Info = document.createElement('div')
     if(property == 'read'){
-
+        Info.classList.add('read')
         Info.textContent = printRead(book[property])
     }
     else if(property == 'numPages')
-    {
-        Info.textContent = printNumberOfPages(book[property])
+    {   Info.textContent = 'Number of pages is '
+        Info.appendChild(printItem(book[property] , property))
     }
     else if(property == 'author'){
-        Info.textContent = printAuthor(book[property])
+        Info.textContent = 'Author is '
+        Info.appendChild(printItem(book[property] , property))
     }
     else if(property == 'title')
     {
-        Info.textContent = printTitle(book[property])
+        Info.textContent = 'Title is '
+        Info.appendChild(printItem(book[property], property))
     }
        return Info 
 }
@@ -79,18 +79,19 @@ function DisplayBooks(book){
    
         let card = document.createElement('div')
         card.classList.add('card')
-        card.setAttribute('id', books.length-1)
+        card.setAttribute('id', books.length)
         for(const property in book){
             card.appendChild(addToCard(book , property))
         }
         cards.appendChild(card)
         let btnContainer = document.createElement('div')
         btnContainer.classList.add('btn-container')
-
          btnContainer.appendChild(createRemoveBtn(card))
          btnContainer.appendChild(createEditBtn(card))
          card.appendChild(btnContainer)
-         cards.removeChild(init)
+         if(init.parentElement == cards)
+            cards.removeChild(init)
+         
         
     
 
@@ -101,12 +102,20 @@ function createRemoveBtn(card){
        
         btn.className = 'remove-btn btn'
         btn.addEventListener('click',()=>{
+            
+            books.splice(card.getAttribute('id') , 1)
             cards.removeChild(card)
-            books.splice(btn.id , 1)
+            
+            reassignIds(Array.from(cards.children) , 0)
+            
+            
             if(books.length == 0 ){
                 cards.appendChild(init)
             }
-            })
+            
+            
+        })
+
         return btn
 
        
@@ -117,7 +126,11 @@ function createEditBtn(card){
         btn.textContent = 'Edit'
         btn.className = 'edit-btn btn'
         btn.addEventListener('click',()=>{
-
+            let id = card.getAttribute('id')
+            console.log(books[id])
+            let author = card.querySelector('.author')
+            author.textContent = 'Changed'
+            
         })
         return btn
 }
@@ -131,7 +144,7 @@ submitBtn.addEventListener('click',(e)=>{
     if(checkValidity(authorInput.value , titleInput.value , numberInput.value))
     {
         const book = new Book(authorInput.value , titleInput.value , numberInput.value , readValue.checked)
-    addBookToLibrary(book)
+    
     addPopUp.classList.add('green');
     addPopUp.textContent = 'Books added successfully!'
     DisplayBooks(book)
@@ -139,6 +152,7 @@ submitBtn.addEventListener('click',(e)=>{
     titleInput.value = ''
     numberInput.value = ''
     readValue.checked = false
+    addBookToLibrary(book)
     setTimeout(()=>{
         addPopUp.textContent = ''
         addPopUp.classList.remove('green')
@@ -194,6 +208,8 @@ removeBooks.addEventListener('click',()=>{
     },2000)
 
 })
+
+
 inputs.forEach(input =>{
     input.addEventListener('input',()=>{
         if(input.value != ''){
@@ -254,6 +270,17 @@ function changeMenuIcon(){
     menuChange.src = currentMenu
 }
 
+function reassignIds(cardsDiv,i){
+    let card = cardsDiv[i]
+    if(card == undefined){
+        return
+    }
+    else{
+        
+        reassignIds(cardsDiv,i+1)
+        card.setAttribute('id', i)
+    }
+}
 
 DisplayBooks({author:'Hussein',title:'Hussein' , numPages:200 , read:true})
-
+addBookToLibrary({author:'Hussein',title:'Hussein' , numPages:200 , read:true})
