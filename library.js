@@ -33,22 +33,45 @@ function Book(author, title, numPages , read){
 function addBookToLibrary(book){
     books.push(book)
     
-    
-
 }
-function addToCard(book , property ){
+
+function printRead( value){
+    if(value == false){
+        return 'Book isn\'t read!'
+    }
+    else{
+        return "Book is read!"
+    }
+}
+
+function printNumberOfPages(value){
+    return `Number of pages is ${value}`
+}
+
+function printAuthor(value){
+    return `Author is ${value}`
+}
+function printTitle(value){
+    return `Title is ${value}`
+}
+function addToCard(book , property){
     let Info = document.createElement('div')
     if(property == 'read'){
-        if(book[property] == false){
-            Info.textContent = `Book isn't read!`
-        }
-        else{
-            Info.textContent = `Book read!`
-        }
+
+        Info.textContent = printRead(book[property])
     }
-    else
-        Info.textContent = `${property}: ${book[property]}`
-    return Info
+    else if(property == 'numPages')
+    {
+        Info.textContent = printNumberOfPages(book[property])
+    }
+    else if(property == 'author'){
+        Info.textContent = printAuthor(book[property])
+    }
+    else if(property == 'title')
+    {
+        Info.textContent = printTitle(book[property])
+    }
+       return Info 
 }
 
 
@@ -61,7 +84,12 @@ function DisplayBooks(book){
             card.appendChild(addToCard(book , property))
         }
         cards.appendChild(card)
-         card.append(createRemoveBtn(card))
+        let btnContainer = document.createElement('div')
+        btnContainer.classList.add('btn-container')
+
+         btnContainer.appendChild(createRemoveBtn(card))
+         btnContainer.appendChild(createEditBtn(card))
+         card.appendChild(btnContainer)
          cards.removeChild(init)
         
     
@@ -69,9 +97,8 @@ function DisplayBooks(book){
 }
 function createRemoveBtn(card){
     let btn = document.createElement('button')
-        btn.textContent = 'Delete Book'
-        btn.setAttribute('connection' , card)
-        console.log(new DOMParser().parseFromString(btn.getAttribute('connection'),'text/html') == card)
+        btn.textContent = 'Delete'
+       
         btn.className = 'remove-btn btn'
         btn.addEventListener('click',()=>{
             cards.removeChild(card)
@@ -83,6 +110,16 @@ function createRemoveBtn(card){
         return btn
 
        
+}
+
+function createEditBtn(card){
+     let btn = document.createElement('button')
+        btn.textContent = 'Edit'
+        btn.className = 'edit-btn btn'
+        btn.addEventListener('click',()=>{
+
+        })
+        return btn
 }
 
 submitBtn.addEventListener('click',(e)=>{
@@ -216,3 +253,7 @@ function changeMenuIcon(){
    
     menuChange.src = currentMenu
 }
+
+
+DisplayBooks({author:'Hussein',title:'Hussein' , numPages:200 , read:true})
+

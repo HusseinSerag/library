@@ -10,6 +10,7 @@ body > .container{
     grid-template-rows:auto calc(100vh - 45px);
     background-color: #2d2d2d ;
     font-family: 'Kdam Thmor Pro', sans-serif;
+    position: relative;
 }
 .header{
     display:grid;
@@ -76,6 +77,8 @@ body > .container{
     width: 100%;
     position: absolute;
     background-color: rgba(10,10,10,0.5);
+    top:0;
+    left:0;
 }
 form{
     display: flex;
@@ -192,6 +195,18 @@ input[type=checkbox]:checked + span[class^=slider]{
 .remove-btn{
     background-color:#C41E3A;
     border-radius: 10px;
+    padding: clamp(8px,1.5vw,15px);
+    font-size: min(1.4rem,1vw + 8px,1vh + 8px);
+}
+.edit-btn{
+    background-color: #8B8000;
+    border-radius: 10px;
+    padding: clamp(8px,1.5vw,15px);
+    font-size: min(1.4rem,1vw + 8px,1vh + 8px);
+}
+.btn-container{
+    display: flex;
+    justify-content: space-between;
 }
 .sm-text{
     font-size: 12px;
@@ -219,6 +234,7 @@ padding: 20px;
     text-align: center;
     color:#ccc;
     font-size: 1.5rem;
+    position: relative;
 }
 .card{
     background-color: #ccc;
@@ -226,4 +242,12 @@ padding: 20px;
     padding: 10px;
     
     
+}
+
+
+input:valid{
+    border-color:green;
+}
+input:invalid{
+    border-color:red;
 }
