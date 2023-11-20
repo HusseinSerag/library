@@ -101,9 +101,16 @@ form .container{
 
 }
 
-.inputs > label , .edit-inputs > label{
+.inputs > label {
     position: absolute;
     top:calc(0.8vw + 3px);
+    left:5px;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.1rem;  
+}
+.edit-inputs > label{
+    position: absolute;
+    top:calc(0.2vw + 3px);
     left:5px;
     transition: all 0.2s ease-in-out;
     font-size: 1.1rem;  
